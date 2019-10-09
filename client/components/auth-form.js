@@ -2,45 +2,52 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
-
-/**
- * COMPONENT
- */
+import TextField from '@material-ui/core/TextField'
+import Container from '@material-ui/core/Container'
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <form onSubmit={handleSubmit} name={name}>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{minHeight: '50vh'}}
+      >
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-email-input"
+            label="Email"
+            type="text"
+            name="email"
+            autoComplete="email"
+            margin="normal"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            margin="normal"
+            name="password"
+          />
+        </Grid>
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
+          <Button type="submit">{displayName}</Button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
+      </Grid>
+    </form>
   )
 }
 
-/**
- * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
- */
 const mapLogin = state => {
   return {
     name: 'login',

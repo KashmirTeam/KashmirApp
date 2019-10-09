@@ -1,18 +1,131 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Artist, Venue, Event, Booking} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
+
+  const artists = await Promise.all([
+    Artist.create({
+      artistName: 'Mt Vernon',
+      city: 'Chicago',
+      bio: 'this is a test'
+    }),
+    Artist.create({
+      artistName: 'Wookie',
+      city: 'Chicago',
+      bio: 'this is another test'
+    })
+  ])
 
   const users = await Promise.all([
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  console.log(`seeded ${users.length} users`)
+  const venues = await Promise.all([
+    Venue.create({
+      venueName: 'Schubas',
+      city: 'Chicago',
+      bio: 'A place for friends',
+      state: 'IL',
+      address: '123 Southport'
+    }),
+    Venue.create({
+      venueName: 'Flagship',
+      city: 'Chicago',
+      bio: 'A place to touch tips',
+      state: 'IL',
+      address: '456 Belmont'
+    })
+  ])
+
+  const events = await Promise.all([
+    Event.create({
+      eventName: 'Musik',
+      city: 'Lake Forest',
+      description: 'Pool party',
+      state: 'IL',
+      address: '1010 Forest Way',
+      date: Date.now()
+    }),
+    Event.create({
+      eventName: 'Art and stuff',
+      city: 'Gary',
+      description: 'Smell our great city',
+      state: 'IN',
+      address: '777 Armpit Rd',
+      date: Date.now()
+    }),
+    Event.create({
+      eventName: 'Swingers party',
+      city: 'Chicago',
+      description: 'Dirty work',
+      state: 'IN',
+      address: 'Secret',
+      date: Date.now()
+    }),
+    Event.create({
+      eventName: 'Rave',
+      city: 'Hole',
+      description: 'Wooks.',
+      state: 'CA',
+      address: '12345 Nowhere',
+      date: Date.now()
+    })
+  ])
+
+  await Promise.all([
+    Booking.create({
+      timeSlot: Date.now(),
+      payRate: '200',
+      gearList: ['Drums', 'Guitar'],
+      artistId: 1,
+      eventId: 1
+    }),
+    Booking.create({
+      timeSlot: Date.now(),
+      payRate: '500',
+      gearList: ['Drums', 'Guitar', 'mic'],
+      artistId: 1,
+      eventId: 2
+    }),
+    Booking.create({
+      timeSlot: Date.now(),
+      payRate: '1000',
+      gearList: ['Drums', 'Guitar', 'computer'],
+      artistId: 2,
+      eventId: 1
+    }),
+    Booking.create({
+      timeSlot: Date.now(),
+      payRate: '2000',
+      gearList: ['Drums', 'Guitar', 'computer'],
+      artistId: 2,
+      eventId: 2
+    })
+  ])
+
+  await artists[0].addUser(users[0])
+  await artists[1].addUser(users[1])
+  await artists[1].addUser(users[0])
+
+  await venues[0].addEvent(events[0])
+  await venues[0].addEvent(events[1])
+  await venues[1].addEvent(events[2])
+  await venues[1].addEvent(events[3])
+
+  await artists[0].addEvent(events[0])
+  await artists[1].addEvent(events[1])
+  await artists[1].addEvent(events[0])
+
+  console.log(
+    `seeded ${users.length} users, ${artists.length} artists, ${
+      venues.length
+    } venues, ${events.length} events.`
+  )
   console.log(`seeded successfully`)
 }
 

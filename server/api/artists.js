@@ -4,14 +4,13 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
+    const artists = await Artist.findAll({
       // explicitly select only the id and email fields - even though
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
-      attributes: ['id', 'email'],
-      include: [{model: Artist, include: Event}]
+      include: [{model: User, attributes: ['id', 'email']}, {model: Event}]
     })
-    res.json(users)
+    res.json(artists)
   } catch (err) {
     next(err)
   }

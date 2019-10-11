@@ -16,3 +16,15 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id, {
+      attributes: ['id', 'email'],
+      include: [{model: Artist, include: Event}]
+    })
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})

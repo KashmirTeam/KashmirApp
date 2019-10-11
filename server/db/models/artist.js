@@ -10,6 +10,9 @@ const Artist = db.define('artist', {
   },
   bio: {
     type: Sequelize.TEXT
+  },
+  imageUrl: {
+    type: Sequelize.STRING
   }
 })
 

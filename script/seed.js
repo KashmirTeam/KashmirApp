@@ -9,14 +9,53 @@ async function seed() {
 
   const artists = await Promise.all([
     Artist.create({
-      artistName: 'Mt Vernon',
+      artistName: 'Mt. Vernon',
       city: 'Chicago',
-      bio: 'this is a test'
+      bio:
+        'Mt. Vernon is an artist from the suburbs of Chicago. He focuses on old music that he does not play anymore because he has moved on to bigger and better things',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
     }),
     Artist.create({
       artistName: 'Wookie',
       city: 'Chicago',
-      bio: 'this is another test'
+      bio:
+        'Wookie is the direct result of bigger and better things. He has played several shows with Diplo, Skrillex, Joe Nice, and Bassnectar. Join him as he creates new soundscapes for the world',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
+    }),
+    Artist.create({
+      artistName: 'Tom Collins',
+      city: 'Chicago',
+      bio:
+        'Tom is the direct result of bigger and better things. He has played several shows with Diplo, Skrillex, Joe Nice, and Bassnectar. Join him as he creates new soundscapes for the world',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
+    }),
+    Artist.create({
+      artistName: 'Eric Clapton',
+      city: 'Chicago',
+      bio:
+        'Eric is the direct result of bigger and better things. He has played several shows with Diplo, Skrillex, Joe Nice, and Bassnectar. Join him as he creates new soundscapes for the world',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
+    }),
+    Artist.create({
+      artistName: 'Joe Nice',
+      city: 'Chicago',
+      bio:
+        'Joe is the direct result of bigger and better things. He has played several shows with Diplo, Skrillex, Joe Nice, and Bassnectar. Join him as he creates new soundscapes for the world',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
+    }),
+    Artist.create({
+      artistName: 'Diplo',
+      city: 'Chicago',
+      bio:
+        'Diplo is the direct result of bigger and better things. He has played several shows with Diplo, Skrillex, Joe Nice, and Bassnectar. Join him as he creates new soundscapes for the world',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
+    }),
+    Artist.create({
+      artistName: 'Kris Gui',
+      city: 'Chicago',
+      bio:
+        'Diplo is the direct result of bigger and better things. He has played several shows with Diplo, Skrillex, Joe Nice, and Bassnectar. Join him as he creates new soundscapes for the world',
+      imageUrl: 'https://picsum.photos/seed/picsum/400/350'
     })
   ])
 
@@ -80,28 +119,28 @@ async function seed() {
   await Promise.all([
     Booking.create({
       timeSlot: Date.now(),
-      payRate: '200',
+      payRate: 200,
       gearList: ['Drums', 'Guitar'],
       artistId: 1,
       eventId: 1
     }),
     Booking.create({
       timeSlot: Date.now(),
-      payRate: '500',
+      payRate: 500,
       gearList: ['Drums', 'Guitar', 'mic'],
       artistId: 1,
       eventId: 2
     }),
     Booking.create({
       timeSlot: Date.now(),
-      payRate: '1000',
+      payRate: 1000,
       gearList: ['Drums', 'Guitar', 'computer'],
       artistId: 2,
       eventId: 1
     }),
     Booking.create({
       timeSlot: Date.now(),
-      payRate: '2000',
+      payRate: 2000,
       gearList: ['Drums', 'Guitar', 'computer'],
       artistId: 2,
       eventId: 2
@@ -118,6 +157,11 @@ async function seed() {
   await venues[1].addEvent(events[3])
 
   await artists[0].addEvent(events[0])
+  await artists[2].addEvent(events[0])
+  await artists[3].addEvent(events[0])
+  await artists[4].addEvent(events[0])
+  await artists[5].addEvent(events[0])
+  await artists[6].addEvent(events[0])
   await artists[1].addEvent(events[1])
   await artists[1].addEvent(events[0])
 

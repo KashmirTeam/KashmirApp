@@ -6,7 +6,7 @@ const Booking = db.define('booking', {
     type: Sequelize.DATE
   },
   payRate: {
-    type: Sequelize.STRING
+    type: Sequelize.INTEGER
   },
   gearList: {
     type: Sequelize.ARRAY(Sequelize.STRING)
